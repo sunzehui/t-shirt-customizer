@@ -1,0 +1,11 @@
+.page-intro{
+  @apply pointer-events-none absolute inset-0 flex flex-col justify-center items-center z-20;
+}
+.page-intro--main{
+   .page-main-title{
+        @apply text-6xl mt-10; 
+    }
+    .text-desc{
+        @apply text-2xl mt-5 text-gray-500;
+    }
+}
