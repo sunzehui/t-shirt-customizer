@@ -10,9 +10,7 @@ export const metadata = {
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: any) {
   return (
     <html lang="zh-hans">
       <body className={inter.className}>{children}</body>
