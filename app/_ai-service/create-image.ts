@@ -1,6 +1,7 @@
 'use server'
 import { Configuration, OpenAIApi } from 'openai';
 import { HttpsProxyAgent } from 'https-proxy-agent'
+const isProd = process.env.NODE_ENV === 'production';
 
 const config = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -15,7 +16,7 @@ export default async function handler(prompt: string) {
       n: 1,
       size: '1024x1024',
       response_format: 'b64_json'
-    }, {
+    }, isProd ? {} : {
       proxy: false,
       httpAgent: new HttpsProxyAgent('http://localhost:7890'),
       httpsAgent: new HttpsProxyAgent('http://localhost:7890')
@@ -24,6 +25,6 @@ export default async function handler(prompt: string) {
     return image;
   } catch (error:any) {
     console.error(error.message);
-    return null
+    throw new Error(error.message);
   }
 }
