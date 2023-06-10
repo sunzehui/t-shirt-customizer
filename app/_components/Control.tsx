@@ -1,3 +1,4 @@
+'use client'
 import { useSnapshot } from "valtio";
 import { state } from "../_state";
 import ColorfullButton from "./ColorfullButton";

@@ -1,8 +1,9 @@
+'use client'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Center, Environment, OrbitControls, useGLTF } from '@react-three/drei'
+import { Center } from '@react-three/drei'
 import { Camera, Group, Vector3 } from 'three'
 import TShirt from '../_canvas/Shirt_baked'
-import { forwardRef, ForwardRefExoticComponent, useRef } from 'react'
+import { useRef } from 'react'
 import { easing } from 'maath';
 import { useSnapshot } from 'valtio';
 import type { ThreeElements } from '@react-three/fiber';
@@ -11,11 +12,9 @@ import { AccumulativeShadows, RandomizedLight } from '@react-three/drei';
 
 
 const Backdrop = () => {
-  const shadows = useRef(null!);
 
   return (
     <AccumulativeShadows
-      ref={shadows}
       temporal
       frames={60}
       alphaTest={0.85}

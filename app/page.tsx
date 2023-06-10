@@ -1,7 +1,6 @@
-'use client'
-import Intro from './_components/Intro'
-import Scene from './_components/Scene'
-import Control from './_components/Control'
+import Intro from '@/app/_components/Intro'
+import Scene from '@/app/_components/Scene'
+import Control from '@/app/_components/Control'
 
 export default function Home() {
   return (
