@@ -19,14 +19,14 @@ export default function Home() {
     <AnimatePresence>
       {snap.isIntroed ? null :
         <motion.div className={pageStyle['page-intro']}>
-          <motion.div className={'container flex flex-col absolute left-16 top-16'}>
+          <motion.div className={pageStyle['page-intro-wrap']}>
             <motion.header
               {...animationSlide('left')}
             >
               <img className={`h-8 w-8 `} src="/threejs.png" alt="" />
             </motion.header>
             <motion.main className={pageStyle['page-intro--main']}>
-              <motion.h1 {...animationBound('left')} className={pageStyle['page-main-title']}>现在定制T恤！</motion.h1>
+              <motion.h1 {...animationBound('left')} className={pageStyle['page-main-title']}>现在定制<span className='inline-block' >T恤！</span></motion.h1>
               <motion.div {...animationSlide('left')}>
                 <motion.div className={pageStyle['text-desc']}>
                   使用我们全新的3D定制工具，打造您独特的专属衬衫。
@@ -34,7 +34,7 @@ export default function Home() {
                   <strong>释放你的想象力</strong>
                   ，定义你自己的风格。
                 </motion.div>
-                <ColorfullButton onClick={handleSubmitClick}>开始定制</ColorfullButton>
+                <ColorfullButton className={pageStyle['page-intro--submit-btn']} onClick={handleSubmitClick}>开始定制</ColorfullButton>
               </motion.div>
             </motion.main>
           </motion.div>

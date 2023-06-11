@@ -1,11 +1,24 @@
 .page-intro{
   @apply pointer-events-none absolute inset-0 flex flex-col justify-center items-center z-20;
+  .page-intro-wrap{
+    @apply left-8 right-8 top-8 bottom-8;
+    @apply flex flex-col absolute sm:left-16 sm:top-16 sm:right-16 sm:bottom-16;
+  }
 }
+
 .page-intro--main{
+  @apply lg:absolute lg:top-1/2 lg:-translate-y-1/2;
+
    .page-main-title{
-        @apply text-6xl mt-10; 
+        @apply text-3xl mt-5; 
+        @apply sm:text-6xl sm:mt-10;
     }
     .text-desc{
-        @apply text-2xl mt-5 text-gray-500;
+        @apply text-xl mt-2 text-gray-500;
+        @apply sm:text-2xl sm:mt-5;
+    }
+    .page-intro--submit-btn{
+        @apply mt-5;
+        @apply sm:mt-10;
     }
 }

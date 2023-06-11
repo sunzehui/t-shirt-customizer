@@ -1,7 +1,7 @@
 'use client'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Center } from '@react-three/drei'
-import { Camera, Group, Vector3 } from 'three'
+import { Vector3 } from 'three'
 import TShirt from '../_canvas/Shirt_baked'
 import { useRef } from 'react'
 import { easing } from 'maath';
@@ -12,7 +12,6 @@ import { AccumulativeShadows, RandomizedLight } from '@react-three/drei';
 
 
 const Backdrop = () => {
-
   return (
     <AccumulativeShadows
       temporal
@@ -40,14 +39,13 @@ const Backdrop = () => {
   )
 }
 
-
 type CameraRigProps = ThreeElements['group']
 const CameraRig = ({ children }: CameraRigProps) => {
   const group = useRef<THREE.Group>(null!);
   const snap = useSnapshot(state);
   useFrame((state, delta) => {
-    const isBreakpoint = window.innerWidth <= 1260;
-    const isMobile = window.innerWidth <= 600;
+    const isBreakpoint = window.innerWidth <= 1100;
+    const isMobile = window.innerWidth <= 700;
 
     // set the initial position of the model
     let targetPosition = [-0.4, 0, 2];

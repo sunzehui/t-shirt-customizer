@@ -5,18 +5,20 @@ import ColorfullButton from "./ColorfullButton";
 import { AnimatePresence, motion } from "framer-motion";
 import { animationSlide } from "../_animation";
 import pageStyle from "@/app/_styles/control.module.scss";
-import { useEffect, useState } from "react";
+import { FC, PropsWithChildren, PropsWithRef, useEffect, useState } from "react";
 import { ColorTab, UploadTab, AITab } from "./ColorTab";
 import { useClickAway } from "@uidotdev/usehooks";
-
+import classNames from "classnames";
+import type { JSX } from 'react';
 
 interface TabsProps {
   list: TabItem[]
   onChange: (item: TabItem, idx: number) => void
+  className?: string
 }
-const Tabs = ({ list, onChange }: TabsProps) => {
+const Tabs: FC<TabsProps> = ({ list, onChange, ...props }) => {
   return (
-    <ul className="menu bg-base-200 rounded-box">
+    <ul className={classNames(`menu bg-base-200 rounded-box`, props.className)}>
       {
         list.map((item, idx) => {
           return <TabItem onClick={() => onChange(item, idx)} key={item.name} item={item}></TabItem>
@@ -36,7 +38,7 @@ interface TabItemProps {
 const TabItem = ({ item, ...props }: TabItemProps) => {
   return (
     <li {...props}>
-      <a className="tooltip tooltip-right" data-tip={item.name}>
+      <a className="tooltip tooltip-right p-1" data-tip={item.name}>
         <img src={item.url} alt="" />
       </a>
     </li>
@@ -135,8 +137,8 @@ export default function Control() {
           </motion.div>
 
           <motion.div className={pageStyle['sidebar']} {...animationSlide('left')}>
-            <motion.div className={pageStyle['tabs']}>
-              <Tabs list={tabList} onChange={handleTabChange} />
+            <motion.div className={pageStyle['tabs-layout']}>
+              <Tabs className={pageStyle['tabs']} list={tabList} onChange={handleTabChange} />
               {isTabContentShow && <TabContent _ref={tabContentRef} value={activeTab} />}
             </motion.div>
 
