@@ -1,15 +1,14 @@
 'use client'
 import { useSnapshot } from "valtio";
-import { state } from "../_state";
+import { state } from "@/app/_state";
 import ColorfullButton from "./ColorfullButton";
 import { AnimatePresence, motion } from "framer-motion";
-import { animationSlide } from "../_animation";
+import { animationSlide } from "@/app/_animation";
 import pageStyle from "@/app/_styles/control.module.scss";
-import { FC, PropsWithChildren, PropsWithRef, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { ColorTab, UploadTab, AITab } from "./ColorTab";
 import { useClickAway } from "@uidotdev/usehooks";
 import classNames from "classnames";
-import type { JSX } from 'react';
 
 interface TabsProps {
   list: TabItem[]

@@ -3,7 +3,7 @@ import { SketchPicker } from "@hello-pangea/color-picker";
 import { state } from "@/app/_state";
 import { useState } from 'react';
 import classnames from 'classnames';
-import createImage from '@/app/_ai-service/create-image';
+import createImage from '@/ai-service/create-image';
 
 type TabType = 'logo' | '贴图'
 

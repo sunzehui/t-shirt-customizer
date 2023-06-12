@@ -3,6 +3,7 @@ import { useSnapshot } from "valtio";
 import pageStyle from '@/app/_styles/page.module.scss'
 import { state } from "@/app/_state";
 import classnames from "classnames";
+import { getContrastingColor } from "@/utils/tools";
 
 interface ColorfullButtonProps {
   children: React.ReactNode;
@@ -13,7 +14,7 @@ export default function ColorfullButton({ children, ...props }: ColorfullButtonP
   const snap = useSnapshot(state)
   const style = {
     backgroundColor: snap.color,
-    color: '#fff'
+    color: getContrastingColor(snap.color)
   }
 
   return (

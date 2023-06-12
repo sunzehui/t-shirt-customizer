@@ -2,10 +2,10 @@
 import pageStyle from '@/app/_styles/intro.module.scss'
 import { AnimatePresence, motion } from "framer-motion"
 import { useSnapshot } from 'valtio'
-import { state } from '../_state'
+import { state } from '@/app/_state'
 import { useCallback } from 'react'
 import ColorfullButton from './ColorfullButton'
-import { animationBound, animationSlide } from '../_animation'
+import { animationBound, animationSlide } from '@/app/_animation'
 
 
 export default function Home() {

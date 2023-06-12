@@ -2,12 +2,12 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Center } from '@react-three/drei'
 import { Vector3 } from 'three'
-import TShirt from '../_canvas/Shirt_baked'
+import TShirt from './canvas/Shirt_baked'
 import { useRef } from 'react'
 import { easing } from 'maath';
 import { useSnapshot } from 'valtio';
 import type { ThreeElements } from '@react-three/fiber';
-import { state } from '../_state'
+import { state } from '@/app/_state'
 import { AccumulativeShadows, RandomizedLight } from '@react-three/drei';
 
 

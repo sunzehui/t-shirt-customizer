@@ -4,10 +4,9 @@ Command: npx gltfjsx@6.2.3 .\\public\\shirt_baked.glb --types --transform
 */
 
 import * as THREE from 'three'
-import React, { useRef } from 'react'
 import { Decal, useGLTF, useTexture } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
-import { state } from '../_state'
+import { state } from '@/app/_state'
 import { useSnapshot } from 'valtio'
 import { useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
