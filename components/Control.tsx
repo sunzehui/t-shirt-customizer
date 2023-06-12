@@ -6,15 +6,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { animationSlide } from "@/app/_animation";
 import pageStyle from "@/app/_styles/control.module.scss";
 import { FC, useState } from "react";
-import { ColorTab, UploadTab, AITab } from "./ColorTab";
+import { ColorTab, UploadTab, AITab } from "./TabContent";
 import { useClickAway } from "@uidotdev/usehooks";
 import classNames from "classnames";
+import { TabContentProps, TabItemProps, TabsProps, TabItem, TabType } from "@/types/tabs";
 
-interface TabsProps {
-  list: TabItem[]
-  onChange: (item: TabItem, idx: number) => void
-  className?: string
-}
 const Tabs: FC<TabsProps> = ({ list, onChange, ...props }) => {
   return (
     <ul className={classNames(`menu bg-base-200 rounded-box`, props.className)}>
@@ -26,15 +22,8 @@ const Tabs: FC<TabsProps> = ({ list, onChange, ...props }) => {
     </ul>
   )
 }
-interface TabItem {
-  name: string
-  url: string
-}
-interface TabItemProps {
-  item: TabItem
-  onClick?: () => void
-}
-const TabItem = ({ item, ...props }: TabItemProps) => {
+
+const TabItem: FC<TabItemProps> = ({ item, ...props }) => {
   return (
     <li {...props}>
       <a className="tooltip tooltip-right p-1" data-tip={item.name}>
@@ -44,7 +33,6 @@ const TabItem = ({ item, ...props }: TabItemProps) => {
   )
 }
 
-
 const swapBtnMap = {
   logo: {
     url: '/logo-t-shirt.png',
@@ -53,7 +41,7 @@ const swapBtnMap = {
     url: '/texture-t-shirt.png'
   }
 }
-const SwapButton = ({ type }: { type: 'logo' | 'texture' }) => {
+const SwapButton: FC<{ type: TabType }> = ({ type }) => {
   const btnShowType = (type === 'logo' ? 'isLogoShow' : 'isTextureShow') as 'isLogoShow' | 'isTextureShow'
   const focusStyle = {
     backgroundColor: 'red',
@@ -72,13 +60,7 @@ const SwapButton = ({ type }: { type: 'logo' | 'texture' }) => {
   )
 }
 
-
-
-interface TabContentProps {
-  value: TabItem | null
-  _ref: any
-}
-const TabContent = ({ value: tabItem, _ref: ref }: TabContentProps) => {
+const TabContent: FC<TabContentProps> = ({ value: tabItem, _ref: ref }) => {
   const Content = () => {
     if (tabItem === null) return null
     if (tabItem.name === 'color') return <ColorTab />
@@ -97,7 +79,7 @@ const TabContent = ({ value: tabItem, _ref: ref }: TabContentProps) => {
     <Wrap />
   </>
 }
-export default function Control() {
+export default function Control(): FC {
   const snap = useSnapshot(state)
 
   const handleBackBtnClick = () => {
@@ -145,7 +127,7 @@ export default function Control() {
 
           <motion.div className={pageStyle['footer']} {...animationSlide('bottom')}>
             <SwapButton type="logo" />
-            <SwapButton type="texture" />
+            <SwapButton type="贴图" />
           </motion.div>
         </>
 

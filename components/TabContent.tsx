@@ -1,11 +1,11 @@
 import pageStyle from '@/app/_styles/control.module.scss'
 import { SketchPicker } from "@hello-pangea/color-picker";
 import { state } from "@/app/_state";
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import classnames from 'classnames';
 import createImage from '@/ai-service/create-image';
+import { TabType } from '@/types/tabs';
 
-type TabType = 'logo' | '贴图'
 
 const setModelTexture = (activeTab: TabType, url: string) => {
   switch (activeTab) {
@@ -24,12 +24,12 @@ const setModelTexture = (activeTab: TabType, url: string) => {
   }
 }
 
-export const ColorTab = () => {
+export const ColorTab: FC = () => {
   return <>
     <SketchPicker className={`!box-border`} disableAlpha width={'100%'} color={state.color} onChange={({ hex }) => state.color = hex} />
   </>
 }
-export const UploadTab = () => {
+export const UploadTab: FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('logo')
   const [inputInfo, setInputInfo] = useState('上传' + activeTab)
   const [selectedFile, setSelectedFile] = useState('')
@@ -66,9 +66,7 @@ export const UploadTab = () => {
   </>
 }
 
-
-
-export const AITab = () => {
+export const AITab: FC = () => {
   const [activeTab, setActiveTab] = useState<'logo' | '贴图'>('logo')
   const [btnState, setBtnState] = useState<'提交' | 'loading'>('提交')
   const [inputContent, setInputContent] = useState('')

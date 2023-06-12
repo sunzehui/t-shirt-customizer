@@ -4,13 +4,14 @@ import pageStyle from '@/app/_styles/page.module.scss'
 import { state } from "@/app/_state";
 import classnames from "classnames";
 import { getContrastingColor } from "@/utils/tools";
+import { FC } from "react";
 
 interface ColorfullButtonProps {
   children: React.ReactNode;
   // html properties
   [key: string]: any;
 }
-export default function ColorfullButton({ children, ...props }: ColorfullButtonProps) {
+const ColorfullButton: FC<ColorfullButtonProps> = ({ children, ...props }) => {
   const snap = useSnapshot(state)
   const style = {
     backgroundColor: snap.color,
@@ -23,3 +24,4 @@ export default function ColorfullButton({ children, ...props }: ColorfullButtonP
     </motion.button>
   )
 }
+export default ColorfullButton 
