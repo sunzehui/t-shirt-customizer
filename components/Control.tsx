@@ -79,7 +79,7 @@ const TabContent: FC<TabContentProps> = ({ value: tabItem, _ref: ref }) => {
     <Wrap />
   </>
 }
-export default function Control(): FC {
+const Control: FC = () => {
   const snap = useSnapshot(state)
 
   const handleBackBtnClick = () => {
@@ -136,3 +136,4 @@ export default function Control(): FC {
     </AnimatePresence>
   )
 }
+export default Control
