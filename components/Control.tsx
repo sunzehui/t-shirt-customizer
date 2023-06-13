@@ -37,7 +37,7 @@ const swapBtnMap = {
   logo: {
     url: '/logo-t-shirt.png',
   },
-  texture: {
+  '贴图': {
     url: '/texture-t-shirt.png'
   }
 }
