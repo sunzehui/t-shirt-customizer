@@ -91,6 +91,8 @@ export const AITab: FC = () => {
     setBtnState('loading')
 
     const photoBase64 = await createImage(inputContent)
+    console.log("🚀 ~ file: TabContent.tsx:94 ~ handleSubmit ~ photoBase64:", photoBase64)
+    if (!photoBase64) return alert('AI服务出错，请稍后再试')
     const url = `data:image/png;base64,${photoBase64}`
     setModelTexture(activeTab, url)
 
