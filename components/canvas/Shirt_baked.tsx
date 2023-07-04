@@ -10,6 +10,7 @@ import { state } from '@/app/_state'
 import { useSnapshot } from 'valtio'
 import { useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
+import { useEffect, useState } from 'react'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -19,51 +20,90 @@ type GLTFResult = GLTF & {
     lambert1: THREE.MeshStandardMaterial
   }
 }
+
 const shirtModelPath = '/shirt_baked.glb'
 
+type ModelLoaderResult = {
+  modelLoaded: boolean;
+  gltf: GLTFResult | null;
+};
+
+const useModelLoader = (modelPath: string): ModelLoaderResult => {
+  const [modelLoaded, setModelLoaded] = useState(false);
+  const { scene, ...gltf } = useGLTF(modelPath) as GLTFResult;
+
+  useEffect(() => {
+    const onLoad = () => {
+      setModelLoaded(true);
+    };
+
+    if (scene) {
+      if (scene.children.length > 0) {
+        onLoad();
+      } else {
+        scene.addEventListener('loaded', onLoad);
+      }
+    }
+
+    return () => {
+      if (scene) {
+        scene.removeEventListener('loaded', onLoad);
+      }
+    };
+  }, [scene]);
+
+  useEffect(() => {
+    useGLTF.preload(modelPath);
+  }, [modelPath]);
+
+  return {
+    modelLoaded,
+    gltf: { scene, ...gltf },
+  };
+};
 export default function TShirt(props: JSX.IntrinsicElements['group']) {
   const snap = useSnapshot(state);
   const fullTexture = useTexture(snap.fullTexture);
   const logoTexture = useTexture(snap.logoTexture);
+  const { modelLoaded, gltf } = useModelLoader(shirtModelPath);
 
   useFrame((state, delta) => {
-    easing.dampC(materials.lambert1.color, snap.color, 0.25, delta)
+    easing.dampC(gltf.materials.lambert1.color, snap.color, 0.25, delta)
   });
-
-  const { nodes, materials, scene } = useGLTF(shirtModelPath) as GLTFResult
+  useEffect(() => {
+    state.isModelLoaded = modelLoaded;
+  }, [modelLoaded])
   return (
-    <group key={JSON.stringify(snap)}>
-      <mesh
-        material-roughness={1}
-        dispose={null}
-        castShadow
-        geometry={nodes.T_Shirt_male.geometry} material={materials.lambert1} scale={[1, 1, 1]} >
+    <mesh
+      material-roughness={1}
+      dispose={null}
+      castShadow
+      geometry={gltf.nodes.T_Shirt_male.geometry}
+      material={gltf.materials.lambert1}
+      scale={[1, 1, 1]}
+    >
+      {snap.isTextureShow && (
+        <Decal
+          position={[0, 0, 0]}
+          rotation={[0, 0, 0]}
+          scale={1}
+          map={fullTexture}
+        />
+      )}
 
-        {snap.isTextureShow && (
-          <Decal
-            position={[0, 0, 0]}
-            rotation={[0, 0, 0]}
-            scale={1}
-            map={fullTexture}
-          />
-        )}
-
-        {snap.isLogoShow && (
-          <Decal
-            position={[0, 0.04, 0.15]}
-            rotation={[0, 0, 0]}
-            scale={0.15}
-            map={logoTexture}
-
-            map-anisotropy={16}
-            depthTest={false}
-            depthWrite={true}
-          />
-        )}
-
-      </mesh>
-
-    </group>
-  )
+      {snap.isLogoShow && (
+        <Decal
+          position={[0, 0.04, 0.15]}
+          rotation={[0, 0, 0]}
+          scale={0.15}
+          map={logoTexture}
+          map-anisotropy={16}
+          depthTest={false}
+          depthWrite={true}
+        />
+      )}
+    </mesh>
+  );
 }
+
 useGLTF.preload(shirtModelPath)

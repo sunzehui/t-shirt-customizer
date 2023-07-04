@@ -130,7 +130,6 @@ const Control: FC = () => {
             <SwapButton type="贴图" />
           </motion.div>
         </>
-
         : null
       }
     </AnimatePresence>

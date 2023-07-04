@@ -15,6 +15,9 @@ export default function Home() {
     state.isIntroed = true
   }, [])
 
+  const handleAnimationComplete = useCallback(() => {
+    state.loaded = true
+  }, [])
   return (
     <AnimatePresence>
       {snap.isIntroed ? null :
@@ -22,6 +25,7 @@ export default function Home() {
           <motion.div className={pageStyle['page-intro-wrap']}>
             <motion.header
               {...animationSlide('left')}
+              onAnimationComplete={handleAnimationComplete}
             >
               <img className={`h-8 w-8 `} src="/threejs.png" alt="" />
             </motion.header>
