@@ -8,6 +8,7 @@ export const state = proxy({
   isTextureShow: false,
   fullTexture: '/threejs.png',
   logoTexture: '/threejs.png',
-  isModelLoaded: false
+  isModelLoaded: false,
+  loaded: false
 })
 
